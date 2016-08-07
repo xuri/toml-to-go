@@ -116,7 +116,7 @@ function jsonToGo(json, typename)
 			append(format(keyname)+" ");
 			parseScope(scope[keyname]);
 
-			append(' `json:"'+keyname);
+			append(' `toml:"'+keyname);
 			if (omitempty && omitempty[keyname] === true)
 			{
 				append(',omitempty');
