@@ -11,4 +11,4 @@ TOML-to-Go is base on JSON-to-go originally by ([Matt Holt](https://github.com/m
 
 The Go Gopher is originally by The Go Blog. This artwork is an adaptation.
 
-The TOML parser for node and the browser is originally by ([Ricardo Tomasi](https://github.com/ricardobeat)).
+The TOML parser for node and the browser is originally by ([Michelle Tilley](https://github.com/BinaryMuse/toml-node)).

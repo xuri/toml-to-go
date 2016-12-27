@@ -14,31 +14,31 @@ function initAnalytics()
 
 $(function()
 {
-	var emptyInputMsg = "Paste TOML here";
+	var emptyInputMsg = "";
 	var emptyOutputMsg = "Go will appear here";
-	var formattedEmptyInputMsg = '<span style="color: #777;">'+emptyInputMsg+'</span>';
+	var formattedEmptyInputMsg = emptyInputMsg;
 	var formattedEmptyOutputMsg = '<span style="color: #777;">'+emptyOutputMsg+'</span>';
 
 	// Hides placeholder text
 	$('#input').on('focus', function()
 	{
-		var val = $(this).text();
+		var val = $(this).val();
 		if (!val)
 		{
-			$(this).html(formattedEmptyInputMsg);
+			$(this).val(formattedEmptyInputMsg);
 			$('#output').html(formattedEmptyOutputMsg);
 		}
 		else if (val == emptyInputMsg)
-			$(this).html("");
+			$(this).val("");
 	});
 
 	// Shows placeholder text
 	$('#input').on('blur', function()
 	{
-		var val = $(this).text();
+		var val = $(this).val();
 		if (!val)
 		{
-			$(this).html(formattedEmptyInputMsg);
+			$(this).val(formattedEmptyInputMsg);
 			$('#output').html(formattedEmptyOutputMsg);
 		}
 	}).blur();
@@ -46,14 +46,13 @@ $(function()
 	// Automatically do the conversion
 	$('#input').keyup(function()
 	{
-		var input = $(this).text();
+		var input = $(this).val();
 		if (!input)
 		{
 			$('#output').html(formattedEmptyOutputMsg);
 			return;
 		}
-
-        data = JSON.stringify(toml(input), undefined, 2).trim();
+        data = JSON.stringify(toml.parse(input), undefined, 2).trim();
 		var output = jsonToGo(data);
 
 		if (output.error)
@@ -85,7 +84,7 @@ $(function()
 	// Fill in sample JSON if the user wants to see an example
 	$('#sample1').click(function()
 	{
-		$('#input').text($.trim($("#toml_sample").html())).keyup();
+		$('#input').val($.trim($("#toml_sample").html())).keyup();
 	});
 });
 

@@ -45,13 +45,6 @@
         <link rel="apple-touch-icon-precomposed" sizes="76x76" href="https://xuri.me/apps/icons/apple-touch-icon-76x76-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://xuri.me/apps/icons/apple-touch-icon-72x72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="https://xuri.me/apps/icons/apple-touch-icon-precomposed.png">
-
-        <script src="resources/js/jquery.min.js"></script>
-        <script src="resources/js/highlight.min.js"></script>
-        <script src="resources/js/json-to-go.js"></script>
-        <script src="resources/js/common.js"></script>
-        <script src="resources/js/toml.js"></script>
-        <script src="resources/js/expanding.js"></script>
         <link rel="stylesheet" href="resources/css/tomorrow.highlight.css">
         <link rel="stylesheet" href="resources/css/common.css">
     </head>
@@ -80,7 +73,7 @@
         <table>
             <tr>
                 <td style="width: 50%;">
-                    <div id="input" contenteditable></div>
+                    <textarea id="input" contenteditable placeholder="Paste TOML here"></textarea>
                 </td>
                 <td style="width: 50%;">
                     <div id="output"></div>
@@ -94,6 +87,12 @@
             The Go Gopher artwork is a derivative of that by <a href="https://blog.golang.org/6years" target="_blank">The Go Blog</a>.
         </footer>
 
+        <script src="resources/js/jquery.min.js"></script>
+        <script src="resources/js/highlight.min.js"></script>
+        <script src="resources/js/json-to-go.js"></script>
+        <script src="resources/js/toml.js"></script>
+        <script src="resources/js/expanding.js"></script>
+        <script src="resources/js/common.js"></script>
         <script id="toml_sample" type="application/x-toml">
 # This is a TOML document. Boom.
 
