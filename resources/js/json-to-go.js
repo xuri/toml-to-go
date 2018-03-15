@@ -92,6 +92,9 @@ function jsonToGo(json, typename)
 
 					parseStruct(struct, omitempty); // finally parse the struct !!
 				}
+				else if (sliceType == "slice") {
+					parseScope(scope[0])
+				}
 				else
 					append(sliceType || "interface{}");
 			}
@@ -181,9 +184,9 @@ function jsonToGo(json, typename)
 			case "boolean":
 				return "bool";
 			case "object":
+				if (Array.isArray(val))
+					return "slice";
 				return "struct";
-			case "array":
-				return "slice";
 			default:
 				return "interface{}";
 		}
@@ -226,5 +229,16 @@ function jsonToGo(json, typename)
 			else
 				return sep + frag;
 		});
+	}
+}
+
+if (typeof module != 'undefined') {
+	if (!module.parent) {
+		process.stdin.on('data', function(buf) {
+			var json = buf.toString('utf8')
+			console.log(jsonToGo(json).go)
+		})
+	} else {
+		module.exports = jsonToGo
 	}
 }
