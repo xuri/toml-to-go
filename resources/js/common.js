@@ -52,15 +52,34 @@ $(function()
 			$('#output').html(formattedEmptyOutputMsg);
 			return;
 		}
-        data = JSON.stringify(toml.parse(input), undefined, 2).trim();
-		var output = jsonToGo(data);
-
-		if (output.error)
-			$('#output').html('<span class="clr-red">'+output.error+'</span>');
-		else
-		{
-			var coloredOutput = hljs.highlight("go", output.go);
-			$('#output').html(coloredOutput.value);
+		try {
+			data = JSON.stringify(toml.parse(input), undefined, 2).trim();
+			var output = jsonToGo(data);
+			if (output.error) {
+				$('#output').html('<span class="clr-red">' + output.error + '</span>');
+				var parsedError = output.error.match(/Unexpected token .+ in JSON at position (\d+)/);
+				if (parsedError) {
+					try {
+						var faultyIndex = parsedError.length == 2 && parsedError[1] && parseInt(parsedError[1]);
+						faultyIndex && $('#output').html(constructJSONErrorHTML(output.error, faultyIndex, input));
+					} catch (e) { }
+				}
+			}
+			else {
+				var finalOutput = output.go;
+				if (typeof gofmt === 'function')
+					finalOutput = gofmt(output.go);
+				var coloredOutput = hljs.highlight("go", finalOutput);
+				$('#output').html(coloredOutput.value);
+			}
+		} catch (exc) {
+			if (exc.line && exc.column) {
+				data = "Error at line " + exc.line + " column " + exc.column + ":\n" + exc.message
+				$('#output').html('<span class="clr-red">' + data + '</span>');
+			} else {
+				data = exc.message;
+				$('#output').html('<span class="clr-red">' + data + '</span>');
+			}
 		}
 	});
 
@@ -77,7 +96,9 @@ $(function()
 		{
 			var range = document.createRange();
 			range.selectNode(this);
-			window.getSelection().addRange(range);
+			selection = window.getSelection();
+			selection.removeAllRanges();
+			selection.addRange(range);
 		}
 	});
 
