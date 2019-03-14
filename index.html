@@ -54,10 +54,13 @@
                 <h1>TOML-to-Go</h1>
                 <h2>Convert TOML to Go struct</h2>
                 <p>
-                    This tool instantly converts TOML into a Go type definition. Paste a TOML structure on the left and the equivalent Go type will be generated to the right, which you can paste into your program. The script has to make some assumptions, so double-check the output. (And <code>go fmt</code> your code!)
+                    This tool instantly converts TOML into a Go type definition. Paste a TOML structure on the left and the equivalent Go type will be generated to the right, which you can paste into your program. The script has to make some assumptions, so double-check the output.
                 </p>
                 <p>
                     For an example, try converting TOML from the <a href="javascript:" id="sample1">SmartyStreets API</a>.
+                </p>
+                <p>
+                    <a href="javascript:" id="dark">Dark mode</a>
                 </p>
             </div>
             <img src="resources/images/toml-to-go.png" id="brand" alt="TOML-to-Go: Convert TOML to Go instantly" title="TOML-to-Go: Convert TOML to Go instantly">
@@ -67,7 +70,7 @@
             <tr>
                 <th style="width: 45%;">TOML</th>
                 <th style="width: 10%; font-size: 22px;">&#8594;</th>
-                <th style="width: 45%;">Go</th>
+                <th style="width: 45%;">Go <label><input type="checkbox" id="inline" checked> Inline type definitions</label></th>
             </tr>
         </table>
         <table>
@@ -86,50 +89,20 @@
             <br>
             The Go Gopher artwork is a derivative of that by <a href="https://blog.golang.org/6years" target="_blank">The Go Blog</a>.
         </footer>
-
+        <script>
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('./sw.js').then(function(reg) {
+                }).catch(function(err) {
+                    console.warn('Error whilst registering service worker', err);
+                })
+            }
+        </script>
         <script src="resources/js/jquery.min.js"></script>
         <script src="resources/js/highlight.min.js"></script>
         <script src="resources/js/json-to-go.js"></script>
         <script src="resources/js/toml.js"></script>
         <script src="resources/js/expanding.js"></script>
         <script src="resources/js/common.js"></script>
-        <script src="resources/js/gofmt.js"></script>
-        <script id="toml_sample" type="application/x-toml">
-# This is a TOML document. Boom.
-
-title = "TOML Example"
-
-[owner]
-name = "Tom Preston-Werner"
-organization = "GitHub"
-bio = "GitHub Cofounder & CEO\nLikes tater tots and beer."
-dob = 1979-05-27T07:32:00Z # First class dates? Why not?
-
-[database]
-server = "192.168.1.1"
-ports = [ 8001, 8001, 8002 ]
-connection_max = 5000
-enabled = true
-
-[servers]
-
-    # You can indent as you please. Tabs or spaces. TOML don't care.
-    [servers.alpha]
-    ip = "10.0.0.1"
-    dc = "eqdc10"
-
-    [servers.beta]
-    ip = "10.0.0.2"
-    dc = "eqdc10"
-
-[clients]
-data = [ ["gamma", "delta"], [1, 2] ]
-
-# Line breaks are OK when inside arrays
-hosts = [
-    "alpha",
-    "omega"
-]
-        </script>
+        <script src="resources/js/gofmt.js" async></script>
     </body>
 </html>
