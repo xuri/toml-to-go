@@ -12,6 +12,17 @@ function initAnalytics()
     ga('send', 'pageview');
 }
 
+function setCookie(key, value) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (90 * 24 * 60 * 60 * 1000));
+    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+}
+
+function getCookie(key) {
+    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+}
+
 $(function () {
     const emptyInputMsg = "";
     const emptyOutputMsg = "Go will appear here";
@@ -114,13 +125,26 @@ $(function () {
     });
 
     var dark = false;
-    $("#dark").click(function () {
-        if (!dark) {
+    var dark_mode = getCookie("dark_mode");
+    if (dark_mode != null) {
+        dark = (dark_mode === 'true');
+        if (dark) {
             $("head").append("<link rel='stylesheet' href='resources/css/dark.css' id='dark-css'>");
             $("#dark").html("Light mode");
         } else {
             $("#dark-css").remove();
             $("#dark").html("Dark mode");
+        }
+    }
+    $("#dark").click(function () {
+        if (!dark) {
+            $("head").append("<link rel='stylesheet' href='resources/css/dark.css' id='dark-css'>");
+            $("#dark").html("Light mode");
+            setCookie("dark_mode", true);
+        } else {
+            $("#dark-css").remove();
+            $("#dark").html("Dark mode");
+            setCookie("dark_mode", false);
         }
         dark = !dark;
     });
