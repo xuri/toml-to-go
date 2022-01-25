@@ -118,11 +118,29 @@ footer {
 .clr-red {
 	color: #CC0000;
 }
+.faulty-line {
+	color: #C00;
+	background: #FDD;
+	font-weight: bold
+}
+.json-go-faulty-char  {
+	border: 1px solid purple;
+}
 
 .clear {
 	clear: both;
 }
 
+.copy {
+	font-size: 14px;
+    padding: 5px;
+    background: #80808099;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.copy:hover {
+	background: #808080cf;
+}
 
 @media (max-width: 1000px) {
 	header {
