@@ -1,17 +1,3 @@
-initAnalytics();
-
-function initAnalytics()
-{
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-42792257-5', 'xuri.me');
-    ga('set', 'forceSSL', true);    // Send all data using SSL, even from insecure (HTTP) pages.
-    ga('send', 'pageview');
-}
-
 function setCookie(key, value) {
     var expires = new Date();
     expires.setTime(expires.getTime() + (90 * 24 * 60 * 60 * 1000));
